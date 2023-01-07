@@ -17,12 +17,12 @@
         </div>
         <div class="input-container">
             <label for="country">Country: </label>
-            <input type="text" id="country" name="country" required>
+            <input type="text" id="country" name="country" pattern="[\D]+" required>
             <span></span>
         </div>
         <div class="input-container">
             <label for="zip-code">Zip Code: </label>
-            <input type="text" id="zip-code" name="zip-code" required>
+            <input type="text" id="zip-code" name="zip-code" pattern="[\d]+" minlength="5" maxlength="5" required>
             <span></span>
         </div>
         <div class="input-container">
