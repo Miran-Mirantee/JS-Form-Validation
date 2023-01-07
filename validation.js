@@ -11,6 +11,7 @@ const errorZipcodeMsg = document.querySelector('#zip-code + span');
 const errorPasswordMsg = document.querySelector('#password + span');
 const errorPasswordConfirmMsg = document.querySelector('#password-confirm + span');
 
+// check if password and password confirmation is the same
 const confirmPassword = () => {
     if (password.value != passwordConfirm.value) {
         passwordConfirm.setCustomValidity(' ');
@@ -26,9 +27,19 @@ const confirmPassword = () => {
     }
 };
 
+// check if all field is valid
+const checkAllFieldsValidity = () => {
+    let result = true;
+    for (let input of form) {
+        if (!input.validity.valid) {
+            result = false;
+        }
+    }
+    return result;
+};
+
 form.addEventListener('submit', (e) => {
     // prevent form from submitting
-    e.preventDefault();
     if (mail.validity.valueMissing) {
         errorMailMsg.textContent = "Enter the email first!";
     }
@@ -46,6 +57,10 @@ form.addEventListener('submit', (e) => {
     }
     else {
         confirmPassword();
+    }
+    let result = checkAllFieldsValidity();
+    if (!result) {
+        e.preventDefault();
     }
 });
 
