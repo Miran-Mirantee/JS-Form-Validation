@@ -5,3 +5,4 @@ A form validating with pure JavaScript. This exercise is part of the odin projec
 https://fonts.google.com/specimen/Kaushan+Script<br/>
 
 # Demo
+https://miran-mirantee.github.io/JS-Form-Validation/<br/>
