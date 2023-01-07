@@ -11,6 +11,12 @@ const errorZipcodeMsg = document.querySelector('#zip-code + span');
 const errorPasswordMsg = document.querySelector('#password + span');
 const errorPasswordConfirmMsg = document.querySelector('#password-confirm + span');
 
+// remove 'error' class from message
+const removeError = (message) => {
+    message.textContent = '';
+    message.classList.remove('error');
+}
+
 // check if password and password confirmation is the same
 const confirmPassword = () => {
     if (password.value != passwordConfirm.value) {
@@ -20,7 +26,7 @@ const confirmPassword = () => {
         passwordConfirm.setCustomValidity('');
     }
     if (passwordConfirm.validity.valid) {
-        errorPasswordConfirmMsg.textContent = '';
+        removeError(errorPasswordConfirmMsg);
     }
     else {
         errorPasswordConfirmMsg.textContent = "Password doesn't match!";
@@ -38,26 +44,68 @@ const checkAllFieldsValidity = () => {
     return result;
 };
 
-form.addEventListener('submit', (e) => {
-    // prevent form from submitting
+// display error message after failed validation
+const displayError = () => {
+    errorMailMsg.classList.add('error');
     if (mail.validity.valueMissing) {
         errorMailMsg.textContent = "Enter the email first!";
     }
+    else if (mail.validity.typeMismatch) {
+        errorMailMsg.textContent = "This isn't an email!";
+    }
+    else {
+        errorMailMsg.classList.remove('error');
+    }
+
+    errorCountryMsg.classList.add('error');
     if (country.validity.valueMissing) {
         errorCountryMsg.textContent = "Enter your country!";
     }
+    else if (country.validity.patternMismatch) {
+        errorCountryMsg.textContent = "There's no numeric letter in country name, try again!";
+    }
+    else {
+        errorCountryMsg.classList.remove('error');
+    }
+
+    errorZipcodeMsg.classList.add('error');
     if (zipcode.validity.valueMissing) {
         errorZipcodeMsg.textContent = "Don't forget to enter zipcode!";
     }
+    else if (zipcode.validity.patternMismatch) {
+        errorZipcodeMsg.textContent = "Enter number only!";
+    }
+    else if (zipcode.validity.tooShort) {
+        errorZipcodeMsg.textContent = " Zipcode always has EXACTLY 5 DIGITS!";
+    }
+    else {
+        errorZipcodeMsg.classList.remove('error');
+    }
+
+    errorPasswordMsg.classList.add('error');
     if (password.validity.valueMissing) {
         errorPasswordMsg.textContent = "Please enter the password!";
     }
+    else if (password.validity.patternMismatch) {
+        errorPasswordMsg.textContent = "Password must contains at least one number, one uppercase letter and one lowercase letter, and length should be at least 8 characters";
+    }
+    else {
+        errorPasswordMsg.classList.remove('error');
+    }
+
+    errorPasswordConfirmMsg.classList.add('error');
     if (passwordConfirm.validity.valueMissing) {
         errorPasswordConfirmMsg.textContent = "Don't forget to enter this field!";
     }
     else {
         confirmPassword();
     }
+
+};
+
+form.addEventListener('submit', (e) => {
+    displayError();
+    // prevent form from submitting
     let result = checkAllFieldsValidity();
     if (!result) {
         e.preventDefault();
@@ -66,49 +114,40 @@ form.addEventListener('submit', (e) => {
 
 mail.addEventListener('input', () => {
     if (mail.validity.valid) {
-        errorMailMsg.textContent = '';
+        removeError(errorMailMsg);
     }
     else {
-        if (mail.validity.typeMismatch) {
-            errorMailMsg.textContent = "This isn't an email!";
-        }
+        displayError();
     }
 });
 
 country.addEventListener('input', () => {
     if (country.validity.valid) {
-        errorCountryMsg.textContent = '';
+        removeError(errorCountryMsg);
     }
     else {
-        if (country.validity.patternMismatch) {
-            errorCountryMsg.textContent = "There's no numeric letter in country name, try again!";
-        }
+        displayError();
     }
 });
 
 zipcode.addEventListener('input', () => {
     if (zipcode.validity.valid) {
-        errorZipcodeMsg.textContent = '';
+        removeError(errorZipcodeMsg);
     }
     else {
-        if (zipcode.validity.patternMismatch) {
-            errorZipcodeMsg.textContent = "Enter number only!";
-        }
-        else if (zipcode.validity.tooShort) {
-            errorZipcodeMsg.textContent = " Zipcode always has EXACTLY 5 DIGITS!";
-        }
+        displayError();
     }
 })
 
 password.addEventListener('input', () => {
     if (password.validity.valid) {
-        errorPasswordMsg.textContent = '';
+        removeError(errorPasswordMsg);
     }
     else {
-        if (password.validity.patternMismatch) {
-            errorPasswordMsg.textContent = "Password must contains at least one number, one uppercase letter and one lowercase letter, and length should be at least 8 characters";
-        }
+        displayError();
     }
 });
 
-passwordConfirm.addEventListener('input', () => confirmPassword());
+passwordConfirm.addEventListener('input', () => {
+    displayError();
+});
