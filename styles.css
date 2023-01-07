@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'KaushanScript';
+    src: url(./KaushanScript-Regular.ttf);
+}
+
 html,
 body{
     height: 100%;
@@ -8,19 +13,75 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: blanchedalmond;
 }
 
 form{
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 16px;
 }
 
 .input-container{
     display: flex;
     flex-direction: column;
+    gap: 4px;
+    width: 506px;
+    padding: 8px;
+}
+
+label{
+    font-size: 24px;
+    font-family: 'KaushanScript';
+}
+
+input{
+    outline: none;
+    border: 3px solid;
+    border-radius: 6px;
+    width: 488px;
+    height: 30px;
+    font-size: 24px;
+    padding: 4px 6px;
 }
 
 input:invalid{
-    border: 1px solid red;
+    border-color: red;
+    background-color: rgb(255, 222, 222);
+}
+
+input:valid{
+    border-color: green;
+}
+
+.error{
+    background-color: red;
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button{
+    border: none;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px rgb(0, 0, 0, 0.4);
+    background-color: mediumspringgreen;
+    color: white;
+    box-shadow: 2px 2px rgb(0, 0, 0, 0.3);
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: rgb(84, 247, 184);
+}
+
+button:active{
+    box-shadow: none;
+    transform: translate(2px, 2px);
 }
