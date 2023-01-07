@@ -8,6 +8,23 @@ const passwordConfirm = document.getElementById('password-confirm');
 const errorMailMsg = document.querySelector('#mail + span');
 const errorCountryMsg = document.querySelector('#country + span');
 const errorZipcodeMsg = document.querySelector('#zip-code + span');
+const errorPasswordMsg = document.querySelector('#password + span');
+const errorPasswordConfirmMsg = document.querySelector('#password-confirm + span');
+
+const confirmPassword = () => {
+    if (password.value != passwordConfirm.value) {
+        passwordConfirm.setCustomValidity(' ');
+    }
+    else {
+        passwordConfirm.setCustomValidity('');
+    }
+    if (passwordConfirm.validity.valid) {
+        errorPasswordConfirmMsg.textContent = '';
+    }
+    else {
+        errorPasswordConfirmMsg.textContent = "Password doesn't match!";
+    }
+};
 
 form.addEventListener('submit', (e) => {
     // prevent form from submitting
@@ -20,6 +37,15 @@ form.addEventListener('submit', (e) => {
     }
     if (zipcode.validity.valueMissing) {
         errorZipcodeMsg.textContent = "Don't forget to enter zipcode!";
+    }
+    if (password.validity.valueMissing) {
+        errorPasswordMsg.textContent = "Please enter the password!";
+    }
+    if (passwordConfirm.validity.valueMissing) {
+        errorPasswordConfirmMsg.textContent = "Don't forget to enter this field!";
+    }
+    else {
+        confirmPassword();
     }
 });
 
@@ -59,4 +85,15 @@ zipcode.addEventListener('input', () => {
     }
 })
 
+password.addEventListener('input', () => {
+    if (password.validity.valid) {
+        errorPasswordMsg.textContent = '';
+    }
+    else {
+        if (password.validity.patternMismatch) {
+            errorPasswordMsg.textContent = "Password must contains at least one number, one uppercase letter and one lowercase letter, and length should be at least 8 characters";
+        }
+    }
+});
 
+passwordConfirm.addEventListener('input', () => confirmPassword());
