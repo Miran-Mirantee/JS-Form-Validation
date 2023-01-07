@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation with JavaScript</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./validation.js" defer></script>
+</head>
+<body>
+    <form action="#" method="get" novalidate>
+        <div class="input-container">
+            <label for="mail">Email Address: </label>
+            <input type="email" id="mail" name="mail" required>
+            <span></span>
+        </div>
+        <div class="input-container">
+            <label for="country">Country: </label>
+            <input type="text" id="country" name="country" required>
+            <span></span>
+        </div>
+        <div class="input-container">
+            <label for="zip-code">Zip Code: </label>
+            <input type="text" id="zip-code" name="zip-code" required>
+            <span></span>
+        </div>
+        <div class="input-container">
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" required>
+            <span></span>
+        </div>
+        <div class="input-container">
+            <label for="password-confirm">Password Confirmation: </label>
+            <input type="password" id="password-confirm" name="password-confirm" required>
+            <span></span>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
